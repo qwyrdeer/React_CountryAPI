@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-basis: 100%;
+}
+
+.imgClass {
+    display: flex;
+    border: purple 1px solid;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.allCountryBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-width: 100vw;
+    max-height: 700px;
+    gap: 10px;
+    border: purple 1px solid;
+    overflow: scroll;
+}
+
+.mainSite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+ul li {
+    list-style: none;
+}

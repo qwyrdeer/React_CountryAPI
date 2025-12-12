@@ -1,0 +1,53 @@
+article {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    max-width: 200px;
+}
+
+.africaStyling {
+    color: blue;
+}
+
+.asiaStyling {
+    color: red;
+}
+
+.europeStyling {
+    color: yellow;
+}
+
+.americasStyling {
+    color: green;
+}
+
+.oceaniaStyling {
+    color:purple;
+}
+
+.defaultStyling {
+    color:orange;
+}
+
+.flagStyling {
+    display: flex;
+    max-width: 80px;
+    max-height: 40px;
+}
+
+.articleBox {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 1920px;
+    border: 2px red solid;
+}
+
+.nameFlagBox {
+    display: flex;
+    justify-content: flex-start;
+    border: 2px red solid;
+}
+
+.p {
+    font-size: 8px;
+}
