@@ -16,6 +16,7 @@ function App() {
     const [searchHit, setSearchHit] = useState('');
     const [search, setSearch] = useState('');
     const [errorCountry, setErrorCountry] = useState('');
+    const [searchError, toggleSearchError] = useState (false);
 
 async function fetchCountries() {
     try {
@@ -36,13 +37,13 @@ async function fetchCountries() {
         toggleError(true);
 
     } finally {
-        console.log("temporary")
+
     }
 }
 
     async function searchCountries() {
         try {
-            toggleError(false);
+            toggleSearchError(false);
             setSearchHit('');
             const hit = await axios.get('https://restcountries.com/v3.1/name/' + search);
             setSearchHit(hit.data[0])
@@ -50,7 +51,7 @@ async function fetchCountries() {
         } catch(e) {
             setErrorCountry(search)
             console.error(e);
-            toggleError(true);
+            toggleSearchError(true);
 
         } finally {
             setSearch('')
@@ -64,7 +65,7 @@ async function fetchCountries() {
                     <input type="text" value={search} placeholder="Search a country..."
                             onKeyDown={(e) => e.key === "Enter" && searchCountries()}
                             onChange={(e) => setSearch(e.target.value)}/> <button type="button" onClick={searchCountries}>Search countries</button>
-                    {error && <p className="error-message"> {errorCountry} does not exist. Please try again!</p>}
+                    {searchError && <p className="error-message"> {errorCountry} does not exist. Please try again!</p>}
                 </div>
                 {searchHit ?
                     <SearchResult
