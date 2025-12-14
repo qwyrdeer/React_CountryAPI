@@ -5,11 +5,17 @@ import WorldMap from './assets/world_map.png'
 import {useState} from "react";
 import CountryBlock from "./components/CountryBlock.jsx";
 import SearchResult from "./components/SearchResult.jsx";
+import neighborCalculator from "./helpers/NeighborCalc.js";
+import populationToMillions from "./helpers/PopulationToMillions.js";
 
 function App() {
     const [visibleButton, toggleVisibleButton] = useState(false);
     const [allResults, setAllResults] = useState([]);
     const [error, toggleError] = useState(false);
+
+    const [searchHit, setSearchHit] = useState('');
+    const [search, setSearch] = useState('');
+    const [errorCountry, setErrorCountry] = useState('');
 
 async function fetchCountries() {
     try {
@@ -34,18 +40,12 @@ async function fetchCountries() {
     }
 }
 
-
-    const [searchHit, setSearchHit] = useState('');
-    const [search, setSearch] = useState('');
-    const [errorCountry, setErrorCountry] = useState('');
-
     async function searchCountries() {
         try {
             toggleError(false);
+            setSearchHit('');
             const hit = await axios.get('https://restcountries.com/v3.1/name/' + search);
-
-            console.log(hit.data)
-            setSearchHit(hit.data)
+            setSearchHit(hit.data[0])
 
         } catch(e) {
             setErrorCountry(search)
@@ -57,13 +57,14 @@ async function fetchCountries() {
         }
     }
 
-
-
     return (
         <>
             <div className='mainSite'>
-                <div><input type="text" value={search} placeholder="Search a country..." onChange={(e) => setSearch(e.target.value)}/> <button type="button" onClick={searchCountries}>Search countries</button>
-                    {error && <p className="error-message"> {errorCountry} bestaat niet. Probeer het opnieuw</p>}
+                <div>
+                    <input type="text" value={search} placeholder="Search a country..."
+                            onKeyDown={(e) => e.key === "Enter" && searchCountries()}
+                            onChange={(e) => setSearch(e.target.value)}/> <button type="button" onClick={searchCountries}>Search countries</button>
+                    {error && <p className="error-message"> {errorCountry} does not exist. Please try again!</p>}
                 </div>
                 {searchHit ?
                     <SearchResult
@@ -72,10 +73,10 @@ async function fetchCountries() {
                     countryName= {searchHit.name.official}
                     countryNameCommon= {searchHit.name.common}
                     countrySub= {searchHit.subregion}
-                    countryCapital = {searchHit.capital}
-                    countryInhabitants = {searchHit.population}
-                    // countryNeighbors = {searchHit.borders}
-                    countryDomain = {searchHit.tld}
+                    countryCapital={searchHit.capital}
+                    countryInhabitants={populationToMillions(searchHit?.population)}
+                    countryNeighbors={neighborCalculator(searchHit?.borders)}
+                    countryDomain ={searchHit.tld}
                 />
                     :
                     <p>Research any country with the field above.</p>
@@ -91,8 +92,9 @@ async function fetchCountries() {
                     <div className="allCountryBox">
                         <ul>
                         {allResults.map((country) => (
-                            <li key={country.name.official}>
-                                <div>
+                            // eslint-disable-next-line react/jsx-key
+                            <span>
+                            <li key={country.name.official} className="listStyle">
                                     <CountryBlock
                                         countryName={country.name.common}
                                         countryFlag={country.flags.svg}
@@ -100,8 +102,8 @@ async function fetchCountries() {
                                         countryPopulation={country.population}
                                         countryContinent={country.continents[0]}
                                     />
-                                </div>
-                            </li>))
+                            </li>
+                            </span>))
                         }
                         </ul>
                     </div>

@@ -29,16 +29,15 @@ function CountryBlock ({countryName, countryFlag, countryPopulation, countryAlt,
 
 return (
   <>
-      {/*className={countryStyling}*/}
-      <div className="articleBox">
-    <article className="articleStyle">
-        <div className="nameFlagBox">
+      <span className="articleBox">
+    <span className="articleStyle">
+        <span className="nameFlagBox">
             <img src={countryFlag} alt={countryAlt} className="flagStyling"/>
-        <h3 className={countryStyling}>{countryName}</h3>
-        </div>
+        <span className="nameBox"><h4 className={countryStyling}>{countryName}</h4></span>
+        </span>
         <p>Has a population of {countryPopulation} people</p>
-    </article>
-  </div>
+    </span>
+  </span>
   </>
 
 );

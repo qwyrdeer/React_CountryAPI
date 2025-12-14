@@ -7,10 +7,10 @@ return (
   <>
       <article>
           <div className="topDiv">
-          <span className="imageSpan"><img src={countryFlag} alt={countryAlt}/></span> <h1>{countryName}</h1>
+          <span className="imageSpan"><img src={countryFlag} alt={countryAlt}/></span> <span className="countryNameBlock"><h1>{countryName}</h1></span>
           </div>
 
-          <p>{countryNameCommon} is situated in {countrySub} and the capital is {countryCapital}
+          <p>{countryNameCommon} is situated in {countrySub} and the capital is {countryCapital}.
               It has a population of {countryInhabitants} million people and it borders with {countryNeighbors} neighboring countries
               Websites can be found on {countryDomain} domains.
           </p>

@@ -5,7 +5,6 @@ body {
 
 .imgClass {
     display: flex;
-    border: purple 1px solid;
 }
 
 h1 {
@@ -19,13 +18,13 @@ h1 {
 
 .allCountryBox {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    min-width: 100vw;
-    max-height: 700px;
-    gap: 10px;
-    border: purple 1px solid;
-    overflow: scroll;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1568px;
+    max-height: 500px;
+    flex-wrap: wrap;
+    overflow: auto;
+    flex-flow: wrap;
 }
 
 .mainSite {
@@ -35,6 +34,17 @@ h1 {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-ul li {
+ul {
+    display: flex;
+    gap: 10px;
     list-style: none;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.listStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 0;
 }
